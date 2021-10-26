@@ -29,7 +29,7 @@ test('handle multiple prefix - test tag input', (t) => {
 test('handle multiple prefix - release tag input', (t) => {
   process.env.INPUT_PREFIX = 'target@'
   process.env.INPUT_INCLUDE_TAG_TYPE = 'true'
-  const inTags = ['target@v1.0.0']
+  const inTags = ['target@v1.0.0', 'target@t0.0.0-0']
   const outTags = getVersions(inTags)
-  t.deepEqual(outTags, ['v1.0.0'])
+  t.is(outTags[0], 'v1.0.0')
 })

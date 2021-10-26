@@ -33,9 +33,9 @@ async function run() {
   try {
     const version = await mostRecentTag()
 
-    core.setOutput('version', version.toString())
+    core.setOutput('version', version)
 
-    console.log(`Result: "${version.toString()}"`)
+    console.log(`Result: "${version}"`)
   } catch (error) {
     core.setFailed(error.message)
   }

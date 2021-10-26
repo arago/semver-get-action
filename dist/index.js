@@ -40,9 +40,9 @@ async function run() {
   try {
     const version = await mostRecentTag()
 
-    core.setOutput('version', version.toString())
+    core.setOutput('version', version)
 
-    console.log(`Result: "${version.toString()}"`)
+    console.log(`Result: "${version}"`)
   } catch (error) {
     core.setFailed(error.message)
   }
@@ -10187,21 +10187,21 @@ const getVersions = (tags) => {
       }
     })
     .map((tag) => ({
-      value: semver.parse(tag.value, {loose: true}),
       ...tag,
+      value: semver.parse(tag.value, {loose: true}),
     }))
     .filter(({value}) => value !== null)
-    .sort(({value}) => semver.rcompare(value))
+    .sort((a, b) => semver.rcompare(a.value, b.value))
     .map(({value, type}) => {
       if (type === 'test') {
-        return `t${value}`
+        return `t${value.toString()}`
       }
 
       if (type === 'release') {
-        return `v${value}`
+        return `v${value.toString()}`
       }
 
-      return value
+      return value.toString()
     })
 }
 
