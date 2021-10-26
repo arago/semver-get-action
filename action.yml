@@ -1,13 +1,23 @@
-name: 'Wait'
-description: 'Wait a designated number of milliseconds'
+name: "Get latest Semantic Version"
+description: "Determine the current semantic version"
 inputs:
-  milliseconds:  # id of input
-    description: 'number of milliseconds to wait'
+  github_token:
+    description: "Token to use to push to the repo. Pass in using `secrets.GITHUB_TOKEN`."
     required: true
-    default: '1000'
+  prefix:
+    description: 'Version prefix used to create tag. Usually empty or "v" or "=".'
+    required: false
+    default: ""
+  include_tag_type:
+    description: "If specified, only tags with 't' or 'v' based prefix will be included e.g. v1.0.0. The 't' and 'v' will not be removed from output. This can be used with prefix for mono-repos."
+    required: false
+    default: false
 outputs:
-  time: # output will be available to future steps 
-    description: 'The message to output'
+  version:
+    description: "The new semantic version that was calculated."
 runs:
-  using: 'node12'
-  main: 'dist/index.js'
+  using: "node12"
+  main: "dist/index.js"
+branding:
+  icon: "tag"
+  color: "purple"
